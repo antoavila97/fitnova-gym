@@ -19,7 +19,7 @@ class ClaseFactory extends Factory
             ]),
             'descripcion' => fake()->optional()->sentence(),
             'fecha' => fake()->dateTimeBetween('-7 days', '+30 days')->format('Y-m-d'),
-            'hora' => fake()->randomElement(['08:00', '10:00', '14:00', '16:00', '18:00', '20:00']) . ':00',
+            'hora' => fake()->randomElement(['08:00', '10:00', '14:00', '16:00', '18:00', '20:00']).':00',
             'cupo' => fake()->numberBetween(8, 25),
         ];
     }

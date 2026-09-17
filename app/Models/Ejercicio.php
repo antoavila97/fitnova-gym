@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Ejercicio extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'rutina_id',
         'nombre',

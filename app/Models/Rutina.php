@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Rutina extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'entrenador_id',
         'socio_id',

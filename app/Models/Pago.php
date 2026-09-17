@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Pago extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'membresia_id',
         'socio_id',

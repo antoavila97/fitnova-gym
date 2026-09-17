@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Asistencia extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'clase_id',
         'socio_id',

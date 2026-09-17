@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Membresia extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'socio_id',
         'plan_id',

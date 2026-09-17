@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $socios = collect();
-        User::factory()->socio()->count(28)->create()->each(function (User $socio) use ($planes, $entrenadores, $socios, $admin) {
+        User::factory()->socio()->count(28)->create()->each(function (User $socio) use ($planes, $socios) {
             $socios->push($socio);
             $plan = $planes->random();
             $inicio = fake()->dateTimeBetween('-11 months', 'now');
