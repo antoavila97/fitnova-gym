@@ -1,59 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💪 FitNova Gym — Sistema de Gestión Integral para Gimnasios
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyecto Integrador de **Programación Web III** (3er Año de Sistemas). Sistema web construido con **Laravel 12 + MySQL/MariaDB** que digitaliza la administración de un gimnasio: socios, planes, membresías, pagos, rutinas, ejercicios, clases y asistencias, con **tres roles de usuario** (administrador, entrenador y socio).
 
-## About Laravel
+## Características
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 🔐 **Autenticación** con Laravel Breeze (login, registro, recuperación de contraseña).
+- 🎭 **Roles y permisos**: vistas y acciones diferenciadas por rol mediante middleware.
+  - **Administrador**: todo el panel de gestión (socios, planes, membresías, pagos, reportes).
+  - **Entrenador**: rutinas personalizadas, agenda de clases y control de asistencia.
+  - **Socio**: su membresía, su rutina, reserva/cancelación de clases.
+- 📊 **Dashboard** con métricas: socios activos, ingresos, morosos, planes vigentes y gráficos.
+- 🔎 **Búsqueda asincrónica de socios** con JavaScript (Fetch) contra una API JSON.
+- 📄 **Reportes** con exportación a **CSV**.
+- 💾 Modelo de datos con **8 tablas relacionadas**, migraciones, factories y seeders.
+- 🎨 Interfaz **responsiva** con **Blade + Tailwind CSS + Chart.js**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack tecnológico
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Componente | Tecnología |
+|---|---|
+| Back-end | PHP 8.2 · Laravel 12 (Eloquent ORM, Migraciones, Validación) |
+| Base de datos | MySQL / MariaDB (XAMPP) |
+| Front-end | Blade · Tailwind CSS · JavaScript (Fetch) · Chart.js · Vite |
+| Autenticación | Laravel Breeze |
+| Calidad | Laravel Pint · PHPUnit (tests) |
+| Git | GitHub |
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- [XAMPP](https://www.apachefriends.org/) (Apache + PHP ≥ 8.2 + MariaDB) o equivalente.
+- [Composer](https://getcomposer.org/) ≥ 2.
+- [Node.js](https://nodejs.org/) ≥ 20 y npm.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalación (local con XAMPP)
 
-## Laravel Sponsors
+> ⚠️ En este equipo la BD corre en el puerto **3307** (MariaDB de XAMPP). Si tu MySQL usa 3306, ajusta `DB_PORT`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clonar** el repositorio:
 
-### Premium Partners
+   ```bash
+   git clone <url-del-repositorio> gimnasio
+   cd gimnasio
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Instalar dependencias:**
 
-## Contributing
+   ```bash
+   composer install
+   npm install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Configurar el entorno** (copiar y editar):
 
-## Code of Conduct
+   ```bash
+   copy .env.example .env
+   php artisan key:generate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   Edita `.env` con los datos de tu base:
 
-## Security Vulnerabilities
+   ```env
+   APP_NAME="FitNova Gym"
+   APP_LOCALE=es
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3307
+   DB_DATABASE=gimnasio_db
+   DB_USERNAME=gimnasio
+   DB_PASSWORD=gimnasio2026
+   ```
 
-## License
+   Crea la base y el usuario en phpMyAdmin o por consola:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```sql
+   CREATE DATABASE gimnasio_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE USER 'gimnasio'@'localhost' IDENTIFIED BY 'gimnasio2026';
+   GRANT ALL PRIVILEGES ON gimnasio_db.* TO 'gimnasio'@'localhost';
+   ```
+
+4. **Migrar y sembrar datos de prueba:**
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. **Compilar assets:**
+
+   ```bash
+   npm run build
+   ```
+
+6. **Levantar el servidor** (con Apache, o el servidor de desarrollo):
+
+   ```bash
+   php artisan serve
+   ```
+
+   Abre `http://127.0.0.1:8000`.
+
+## Usuarios de demostración
+
+Todas las contraseñas son `password`:
+
+| Rol | Email |
+|---|---|
+| Administrador | `admin@fitnova.com` |
+| Entrenador | `entrenador@fitnova.com` |
+| Socio | `socio@fitnova.com` |
+
+## Tests
+
+```bash
+php artisan test
+```
+
+Los tests se ejecutan contra la base `gimnasio_test` (MySQL) para replicar el entorno real.
+
+## Documentación técnica
+
+El documento formal (modelo canvas, 12 requerimientos funcionales, requerimientos no funcionales, arquitectura MVC, flujo de datos y DER) está en:
+
+- [`docs/Documentacion_FitNova.pdf`](docs/Documentacion_FitNova.pdf)
+
+Puede regenerarse con:
+
+```bash
+php artisan doc:generar
+```
+
+## Estructura del proyecto
+
+```
+app/
+├── Console/Commands/       GenerarDocumentacion (PDF)
+├── Http/
+│   ├── Controllers/        10 controladores (Dashboard, Socio, Plan, Membresia, Pago, Rutina, Ejercicio, Clase, Asistencia, Reporte)
+│   ├── Middleware/         EnsureUserRole
+│   └── Requests/           11 Form Requests de validación
+├── Models/                 8 modelos Eloquent (User, Plan, Membresia, Pago, Rutina, Ejercicio, Clase, Asistencia)
+database/
+├── migrations/             Esquema completo (users + 7 tablas de dominio)
+├── factories/              Fábricas de datos de prueba
+└── seeders/                DatabaseSeeder (idempotente, usuarios demo)
+resources/views/            Vistas Blade + Tailwind y plantilla del PDF
+routes/web.php              Rutas con middleware de rol
+tests/Feature/              Smoke tests de las secciones por rol
+docs/                       Documentación técnica en PDF
+```
+
+## Autores
+
+Proyecto en parejas (dúo) — Programación Web III, 3er Año de Sistemas.
