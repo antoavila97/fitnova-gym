@@ -30,7 +30,26 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => 'socio',
+            'telefono' => fake()->e164PhoneNumber(),
+            'documento' => fake()->numerify('########'),
+            'fecha_nacimiento' => fake()->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn () => ['role' => 'admin']);
+    }
+
+    public function entrenador(): static
+    {
+        return $this->state(fn () => ['role' => 'entrenador']);
+    }
+
+    public function socio(): static
+    {
+        return $this->state(fn () => ['role' => 'socio']);
     }
 
     /**

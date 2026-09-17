@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,37 +12,79 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'telefono',
+        'documento',
+        'fecha_nacimiento',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'fecha_nacimiento' => 'date',
         ];
+    }
+
+    public function esAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function esEntrenador(): bool
+    {
+        return $this->role === 'entrenador';
+    }
+
+    public function esSocio(): bool
+    {
+        return $this->role === 'socio';
+    }
+
+    public function membresias()
+    {
+        return $this->hasMany(Membresia::class, 'socio_id');
+    }
+
+    public function membresiaActiva()
+    {
+        return $this->hasOne(Membresia::class, 'socio_id')
+            ->where('estado', 'activa')
+            ->latestOfMany();
+    }
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'socio_id');
+    }
+
+    public function rutinasAsignadas()
+    {
+        return $this->hasMany(Rutina::class, 'socio_id');
+    }
+
+    public function rutinasComoEntrenador()
+    {
+        return $this->hasMany(Rutina::class, 'entrenador_id');
+    }
+
+    public function clasesImpartidas()
+    {
+        return $this->hasMany(Clase::class, 'entrenador_id');
+    }
+
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class, 'socio_id');
     }
 }
