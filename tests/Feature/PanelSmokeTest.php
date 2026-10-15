@@ -4,9 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Clase;
 use App\Models\Membresia;
-use App\Models\Pago;
 use App\Models\Plan;
-use App\Models\Rutina;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

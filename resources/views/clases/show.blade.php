@@ -38,9 +38,11 @@
                                     <span class="px-2 py-1 text-xs rounded-full {{ $asistencia->asistio ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500' }}">
                                         {{ $asistencia->asistio ? 'Presente' : 'Ausente' }}
                                     </span>
-                                    <button class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
-                                        {{ $asistencia->asistio ? 'Marcar ausente' : 'Marcar presente' }}
-                                    </button>
+                                    @if (auth()->user()->esAdmin() || auth()->user()->esEntrenador())
+                                        <button class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                                            {{ $asistencia->asistio ? 'Marcar ausente' : 'Marcar presente' }}
+                                        </button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>

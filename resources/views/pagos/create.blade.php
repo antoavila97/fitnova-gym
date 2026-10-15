@@ -13,7 +13,7 @@
                     <option value="">Seleccionar membresía...</option>
                     @foreach ($membresias as $membresia)
                         <option value="{{ $membresia->id }}" data-monto="{{ $membresia->plan->precio }}" @selected(old('membresia_id', $membresiaSeleccionada ?? '') == $membresia->id)>
-                            {{ $membresia->socio->name }} — {{ $membresia->plan->nombre }} (${{ number_format($membresia->plan->precio, 2, ',', '.') }})
+                            {{ $membresia->socio->name }} — {{ $membresia->plan->nombre }} (Bs. {{ number_format($membresia->plan->precio, 2, ',', '.') }})
                         </option>
                     @endforeach
                 </select>
@@ -22,7 +22,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <x-input-label for="monto" value="Monto ($)" />
+                    <x-input-label for="monto" value="Monto (Bs.)" />
                     <x-text-input id="monto" name="monto" type="number" step="0.01" min="0.01" class="mt-1 block w-full" :value="old('monto')" required />
                     <x-input-error class="mt-2" :messages="$errors->get('monto')" />
                 </div>

@@ -2,9 +2,11 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Socios</h2>
-            <a href="{{ route('socios.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none transition">
-                + Nuevo socio
-            </a>
+            @if (auth()->user()->esAdmin())
+                <a href="{{ route('socios.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none transition">
+                    + Nuevo socio
+                </a>
+            @endif
         </div>
     </x-slot>
 
@@ -45,12 +47,14 @@
                             </td>
                             <td class="px-6 py-3 text-sm space-x-3">
                                 <a href="{{ route('socios.show', $socio) }}" class="text-indigo-600 hover:text-indigo-800 font-medium">Ver</a>
-                                <a href="{{ route('socios.edit', $socio) }}" class="text-gray-600 hover:text-gray-800 font-medium">Editar</a>
-                                <form class="inline" method="POST" action="{{ route('socios.destroy', $socio) }}" onsubmit="return confirm('¿Eliminar a {{ addslashes($socio->name) }}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="text-red-600 hover:text-red-800 font-medium">Eliminar</button>
-                                </form>
+                                @if (auth()->user()->esAdmin())
+                                    <a href="{{ route('socios.edit', $socio) }}" class="text-gray-600 hover:text-gray-800 font-medium">Editar</a>
+                                    <form class="inline" method="POST" action="{{ route('socios.destroy', $socio) }}" onsubmit="return confirm('¿Eliminar a {{ addslashes($socio->name) }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="text-red-600 hover:text-red-800 font-medium">Eliminar</button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @empty
@@ -82,6 +86,7 @@
                     const url = q ? `/api/socios?q=${encodeURIComponent(q)}` : null;
                     const res = await fetch(url);
                     const datos = await res.json();
+                    const esAdmin = @json(auth()->user()->esAdmin());
                     cuerpo.innerHTML = datos.map(s => `
                         <tr>
                             <td class="px-6 py-3 text-sm font-medium text-gray-800">${s.name}</td>
@@ -94,7 +99,7 @@
                             </td>
                             <td class="px-6 py-3 text-sm space-x-3">
                                 <a href="/socios/${s.id}" class="text-indigo-600 hover:text-indigo-800 font-medium">Ver</a>
-                                <a href="/socios/${s.id}/edit" class="text-gray-600 hover:text-gray-800 font-medium">Editar</a>
+                                ${esAdmin ? `<a href="/socios/${s.id}/edit" class="text-gray-600 hover:text-gray-800 font-medium">Editar</a>` : ''}
                             </td>
                         </tr>
                     `).join('') || `<tr><td colspan="5" class="px-6 py-8 text-center text-sm text-gray-400">Sin resultados para "${q}"</td></tr>`;

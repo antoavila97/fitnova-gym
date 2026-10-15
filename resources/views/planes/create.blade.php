@@ -21,7 +21,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <x-input-label for="precio" value="Precio ($)" />
+                    <x-input-label for="precio" value="Precio (Bs.)" />
                     <x-text-input id="precio" name="precio" type="number" step="0.01" min="0" class="mt-1 block w-full" :value="old('precio')" required />
                     <x-input-error class="mt-2" :messages="$errors->get('precio')" />
                 </div>

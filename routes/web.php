@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/membresias', [MembresiaController::class, 'index'])->name('membresias.index');
     Route::get('/pagos', [PagoController::class, 'index'])->name('pagos.index');
     Route::get('/rutinas', [RutinaController::class, 'index'])->name('rutinas.index');
+    Route::get('/rutinas/{rutina}', [RutinaController::class, 'show'])->name('rutinas.show');
     Route::get('/clases', [ClaseController::class, 'index'])->name('clases.index');
 
     // --- Solo administradores ---
@@ -38,11 +39,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // --- Administradores y entrenadores ---
     Route::middleware('role:admin,entrenador')->group(function () {
-        Route::resource('rutinas', RutinaController::class)->except(['index']);
+        Route::resource('rutinas', RutinaController::class)->except(['index', 'show']);
         Route::resource('rutinas.ejercicios', EjercicioController::class)->only(['store', 'update', 'destroy']);
         Route::resource('clases', ClaseController::class)->except(['index']);
         Route::patch('asistencias/{asistencia}', [AsistenciaController::class, 'cambiarEstado'])->name('asistencias.estado');
         Route::get('reportes', [ReporteController::class, 'index'])->name('reportes.index');
+        Route::get('reportes/pdf', [ReporteController::class, 'exportarPdf'])->name('reportes.pdf');
+        Route::get('reportes/pagos.pdf', [ReporteController::class, 'exportarPagosPdf'])->name('reportes.pagos_pdf');
         Route::get('reportes/pagos.csv', [ReporteController::class, 'exportarPagos'])->name('reportes.pagos_csv');
         Route::get('api/socios', [SocioController::class, 'buscarJson'])->name('api.socios');
     });

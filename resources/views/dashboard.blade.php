@@ -25,7 +25,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                     <p class="text-sm text-gray-500 font-medium">Pagos realizados</p>
                     <p class="mt-1 text-lg font-semibold text-gray-800">{{ $registros->pagosCount }}</p>
-                    <p class="text-xs text-gray-400">Total: ${{ number_format($registros->pagosTotal, 2, ',', '.') }}</p>
+                    <p class="text-xs text-gray-400">Total: Bs. {{ number_format($registros->pagosTotal, 2, ',', '.') }}</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                     <p class="text-sm text-gray-500 font-medium">Rutinas activas</p>
@@ -69,7 +69,7 @@
                                 <p class="font-medium text-gray-800">{{ $pago->concepto ?? 'Cuota de membresía' }}</p>
                                 <p class="text-xs text-gray-500">{{ $pago->fecha_pago->format('d/m/Y') }} · {{ ucfirst($pago->metodo) }}</p>
                             </div>
-                            <span class="text-sm font-semibold text-green-600">${{ number_format($pago->monto, 2, ',', '.') }}</span>
+                            <span class="text-sm font-semibold text-green-600">Bs. {{ number_format($pago->monto, 2, ',', '.') }}</span>
                         </div>
                     @empty
                         <p class="text-sm text-gray-400">Aún no hay pagos registrados.</p>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                     <p class="text-sm text-gray-500 font-medium">Ingresos del mes</p>
-                    <p class="mt-2 text-2xl font-bold text-gray-800">${{ number_format($registros->ingresosMes, 2, ',', '.') }}</p>
+                    <p class="mt-2 text-2xl font-bold text-gray-800">Bs. {{ number_format($registros->ingresosMes, 2, ',', '.') }}</p>
                     <p class="text-xs text-gray-400">{{ $registros->pagosMes }} pagos registrados</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
@@ -127,7 +127,9 @@
                                     <p class="font-medium text-gray-800">{{ $membresia->socio->name }}</p>
                                     <p class="text-xs text-gray-500">Vencida el {{ $membresia->fecha_fin->format('d/m/Y') }}</p>
                                 </div>
-                                <a href="{{ route('pagos.create', ['membresia_id' => $membresia->id]) }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">Cobrar</a>
+                                @if (auth()->user()->esAdmin())
+                                    <a href="{{ route('pagos.create', ['membresia_id' => $membresia->id]) }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">Cobrar</a>
+                                @endif
                             </div>
                         @empty
                             <p class="text-sm text-gray-400">Sin membresías vencidas.</p>
@@ -144,7 +146,7 @@
                                     <p class="font-medium text-gray-800">{{ $pago->socio->name }}</p>
                                     <p class="text-xs text-gray-500">{{ $pago->concepto ?? 'Cuota' }} · {{ $pago->fecha_pago->format('d/m/Y') }}</p>
                                 </div>
-                                <span class="text-sm font-semibold text-green-600">${{ number_format($pago->monto, 2, ',', '.') }}</span>
+                                <span class="text-sm font-semibold text-green-600">Bs. {{ number_format($pago->monto, 2, ',', '.') }}</span>
                             </div>
                         @empty
                             <p class="text-sm text-gray-400">Sin pagos registrados.</p>
@@ -167,7 +169,7 @@
                         type: 'bar',
                         data: {
                             labels: labels1,
-                            datasets: [{ label: 'Ingresos ($)', data: values1, backgroundColor: '#6366f1', borderRadius: 6 }],
+                            datasets: [{ label: 'Ingresos (Bs.)', data: values1, backgroundColor: '#6366f1', borderRadius: 6 }],
                         },
                         options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } },
                     });

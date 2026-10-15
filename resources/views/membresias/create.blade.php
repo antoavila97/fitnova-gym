@@ -24,7 +24,7 @@
                     <option value="">Seleccionar plan...</option>
                     @foreach ($planes as $plan)
                         <option value="{{ $plan->id }}" @selected(old('plan_id') == $plan->id)>
-                            {{ $plan->nombre }} — ${{ number_format($plan->precio, 2, ',', '.') }} ({{ $plan->duracion_meses }} mes{{ $plan->duracion_meses === 1 ? '' : 'es' }})
+                            {{ $plan->nombre }} — Bs. {{ number_format($plan->precio, 2, ',', '.') }} ({{ $plan->duracion_meses }} mes{{ $plan->duracion_meses === 1 ? '' : 'es' }})
                         </option>
                     @endforeach
                 </select>

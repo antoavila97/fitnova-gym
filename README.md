@@ -11,7 +11,7 @@ Proyecto Integrador de **Programación Web III** (3er Año de Sistemas). Sistema
   - **Socio**: su membresía, su rutina, reserva/cancelación de clases.
 - 📊 **Dashboard** con métricas: socios activos, ingresos, morosos, planes vigentes y gráficos.
 - 🔎 **Búsqueda asincrónica de socios** con JavaScript (Fetch) contra una API JSON.
-- 📄 **Reportes** con exportación a **CSV**.
+- 📄 **Reportes** con exportación a **CSV** y **PDF** (reporte general y de pagos).
 - 💾 Modelo de datos con **8 tablas relacionadas**, migraciones, factories y seeders.
 - 🎨 Interfaz **responsiva** con **Blade + Tailwind CSS + Chart.js**.
 

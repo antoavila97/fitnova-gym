@@ -62,7 +62,7 @@ Esta guía explica cómo **iniciar el servidor local** y las **cuentas de acceso
 - Gestionar **Socios** (alta, edición, baja y búsqueda en vivo).
 - Gestionar **Planes**, **Membresías** y **Pagos** (incluye reactivación de vencidas).
 - Ver **Rutinas** y **Clases**.
-- Ver **Reportes** y exportarlos a **CSV**.
+- Ver **Reportes** y exportarlos a **PDF** y **CSV** con montos en **Bolivianos (Bs.)**.
 
 **Entrenador** (`entrenador@fitnova.com`)
 - Ver el **Dashboard**.

@@ -3,8 +3,10 @@
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $socio->name }}</h2>
             <div class="flex gap-2">
-                <a href="{{ route('socios.edit', $socio) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">Editar</a>
-                <a href="{{ route('membresias.create', ['socio_id' => $socio->id]) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 transition">Asignar membresía</a>
+                @if (auth()->user()->esAdmin())
+                    <a href="{{ route('socios.edit', $socio) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">Editar</a>
+                    <a href="{{ route('membresias.create', ['socio_id' => $socio->id]) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 transition">Asignar membresía</a>
+                @endif
             </div>
         </div>
     </x-slot>
@@ -67,7 +69,7 @@
                             <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Fecha</th>
                             <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Concepto</th>
                             <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Método</th>
-                            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Monto</th>
+                            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Monto (Bs.)</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -76,7 +78,7 @@
                                 <td class="px-4 py-2 text-sm">{{ $pago->fecha_pago->format('d/m/Y') }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $pago->concepto ?? '—' }}</td>
                                 <td class="px-4 py-2 text-sm capitalize">{{ $pago->metodo }}</td>
-                                <td class="px-4 py-2 text-sm font-medium text-green-600">${{ number_format($pago->monto, 2, ',', '.') }}</td>
+                                <td class="px-4 py-2 text-sm font-medium text-green-600">Bs. {{ number_format($pago->monto, 2, ',', '.') }}</td>
                             </tr>
                         @empty
                             <tr><td colspan="4" class="px-4 py-6 text-center text-sm text-gray-400">Sin pagos registrados.</td></tr>

@@ -2,9 +2,19 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Reportes</h2>
-            <a href="{{ route('reportes.pagos_csv') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">
-                Exportar pagos (CSV)
-            </a>
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="{{ route('reportes.pdf') }}" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 shadow-sm transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Reporte General (PDF)
+                </a>
+                <a href="{{ route('reportes.pagos_pdf') }}" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-rose-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-rose-500 shadow-sm transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Reporte Pagos (PDF)
+                </a>
+                <a href="{{ route('reportes.pagos_csv') }}" class="inline-flex items-center px-3 py-2 bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 transition">
+                    CSV
+                </a>
+            </div>
         </div>
     </x-slot>
 
@@ -31,7 +41,7 @@
                     @forelse ($pagometodo as $pm)
                         <div class="flex items-center justify-between border-b border-gray-100 pb-2">
                             <span class="text-sm capitalize text-gray-600">{{ $pm->metodo }}</span>
-                            <span class="text-sm font-semibold text-gray-800">${{ number_format($pm->monto, 2, ',', '.') }} <span class="text-gray-400 text-xs">({{ $pm->total }} pagos)</span></span>
+                            <span class="text-sm font-semibold text-gray-800">Bs. {{ number_format($pm->monto, 2, ',', '.') }} <span class="text-gray-400 text-xs">({{ $pm->total }} pagos)</span></span>
                         </div>
                     @empty
                         <p class="text-sm text-gray-400">Sin datos.</p>
@@ -78,7 +88,7 @@
                     });
                 }
 
-                hacerGrafico('gIngresos', 'bar', null, 'Ingresos ($)');
+                hacerGrafico('gIngresos', 'bar', null, 'Ingresos (Bs.)');
                 hacerGrafico('gVencimientos', 'bar', null, 'Membresías');
                 hacerGrafico('gPlanes', 'doughnut', null);
             });

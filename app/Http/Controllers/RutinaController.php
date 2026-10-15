@@ -44,6 +44,10 @@ class RutinaController extends Controller
 
     public function show(Rutina $rutina)
     {
+        if (auth()->user()->esSocio() && $rutina->socio_id !== auth()->id()) {
+            abort(403, 'No tienes permisos para acceder a esta sección.');
+        }
+
         $rutina->load(['entrenador', 'socio', 'ejercicios']);
 
         return view('rutinas.show', compact('rutina'));
